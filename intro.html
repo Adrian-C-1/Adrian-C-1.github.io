@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="On the answer to life, the universe and everything about Notes by a horse.">
+  <meta name="theme-color" content="#f3a9cb">
+  <meta property="og:title" content="Pilot">
+  <meta property="og:description" content="On the answer to life, the universe and everything about Notes by a horse.">
+  <meta property="og:type" content="article">
+  <title>Pilot / Notes by a horse.</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <script src="assets/theme.js"></script>
+  <link rel="stylesheet" href="assets/theme.css">
+  <link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+  <script src="assets/reader.js" defer></script>
+  
+</head>
+<body class="page-article">
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-mark"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-notebook-pen"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4" />
+  <path d="M2 6h4" />
+  <path d="M2 10h4" />
+  <path d="M2 14h4" />
+  <path d="M2 18h4" />
+  <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
+</svg>
+</span><span>Notes by a horse.<small>Yes. A. Literal. Horse.</small></span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="archive.html?kind=article" data-nav-kind="article" aria-current="page">Journal</a>
+      <a href="archive.html?kind=ctf" data-nav-kind="ctf">Writeups</a>
+      
+    </nav>
+    <div class="header-tools"><button class="icon-button theme-toggle" type="button" title="Switch to dark mode" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-moon"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-moon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+</svg>
+</span><span class="theme-sun"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-sun"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+</span></button><button class="icon-button library-button" type="button" title="Open notebook" aria-label="Open notebook"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-book-open"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M12 7v14" />
+  <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+</svg>
+</button></div>
+  </header>
+  <aside class="toc-rail" aria-label="On this page"><span class="rail-title">ON THIS PAGE</span><nav><a href="#about-adrian" class="toc-link" data-heading="about-adrian"><span class="toc-mark" aria-hidden="true">01</span><span class="toc-label">About Adrian</span></a><a href="#about-the-horse" class="toc-link" data-heading="about-the-horse"><span class="toc-mark" aria-hidden="true">02</span><span class="toc-label">About the horse</span></a><a href="#about-this-notebook" class="toc-link" data-heading="about-this-notebook"><span class="toc-mark" aria-hidden="true">03</span><span class="toc-label">About this notebook</span></a><a href="#ai-usage" class="toc-link" data-heading="ai-usage"><span class="toc-mark" aria-hidden="true">04</span><span class="toc-label">AI usage</span></a></nav><a class="rail-top" href="#top" aria-label="Back to top"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m5 12 7-7 7 7" />
+  <path d="M12 19V5" />
+</svg>
+</a></aside>
+  <main id="content" class="page-shell">
+    
+    <article id="top">
+      <header class="article-header">
+        <div class="article-eyebrow"><span class="category-sticker">FIELD NOTES</span><span class="edition">NO. 001 / THE INTRO ARC</span></div>
+        <h1>Pilot<span class="title-dot" aria-hidden="true">.</span></h1>
+        <p class="article-deck">On the answer to life, the universe and everything about Notes by a horse.</p>
+        <div class="byline"><span class="author-avatar" aria-hidden="true">A</span><a class="author-name" href="https://github.com/Adrian-C-1" target="_blank" rel="noopener noreferrer">Adrian-C-1</a><span class="byline-divider">/</span><time datetime="2026-10-14">Oct 14, 2026</time><span class="reading-time"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-clock"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="12" cy="12" r="10" />
+  <polyline points="12 6 12 12 16 14" />
+</svg>
+ 2 min read</span></div>
+        <div class="article-tags"><span>horse</span><span>Adrian-C-1</span><span class="status-tag">NOTES, NOT SECRETS <!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</span></div>
+        
+      </header>
+      <div class="article-body prose"><p>Figured it’s time to give back to the community.</p>
+<h2 id="about-adrian"><a class="heading-anchor" href="#about-adrian" aria-label="Link to About Adrian">#</a>About Adrian</h2>
+<p>I’m Adrian. But that’s a boring name for a student about to get their bachelors degree and struggling to get a job in cyber. I also have a horse that does things (yes, a literal horse). He also likes programming.</p>
+<h2 id="about-the-horse"><a class="heading-anchor" href="#about-the-horse" aria-label="Link to About the horse">#</a>About the horse</h2>
+<p>The horse started programming about 6 years ago (as of writing this), and for the first 3 years he didn’t know how many areas there were, so he stuck with competitive programming in C++. After highschool he learned other things exist so he started learning about graphics and a lot of other programming languages. He is grateful for the knowledge gained from competitive programming, but he’s not touching that again.</p>
+<aside class="callout callout-note"><p class="callout-title">How does a horse even write?</p>
+<p>He uses his hooves, duh.</p>
+</aside>
+<p>After about 1 year of learning graphics (sfml, opengl), gamedev(unreal, unity, he also read books) and web, he went to university, where he continued to learn software development and full stack, networking, math, as well as a more programming languages(rust, java, python, asm). He then pivoted to cybersecurity where he still currently learns. From the looks of it, this is the end-goal career.</p>
+<aside class="callout callout-note"><p class="callout-title">How does a horse sit in a class in university?</p>
+<p>He doesn’t sit as he would hurt his back on the wooden chairs.</p>
+<p>He stands.</p>
+</aside>
+<h2 id="about-this-notebook"><a class="heading-anchor" href="#about-this-notebook" aria-label="Link to About this notebook">#</a>About this notebook</h2>
+<p>The horse read a lot of articles written by people in order to learn, so he thinks it’s time to write his own ideas, problems and solves to those problems for other people to use in the future.</p>
+<aside class="callout callout-note"><p class="callout-title">Is a horse against the GitHub tos?</p>
+<p>No, as long as he follows the Terms of Service and doesn’t engage in automated bot-spamming or scraping.</p>
+</aside>
+<h2 id="ai-usage"><a class="heading-anchor" href="#ai-usage" aria-label="Link to AI usage">#</a>AI usage</h2>
+<p>The horse doesn’t like that AI is now a must have tool in this world but he has to live with it.</p>
+<p>AI was used in designing this website as the horse absolutely sucks at design. All written content is entirely horse-made and human-narrated (unless specified).</p>
+</div>
+      <footer class="article-footer"><span class="end-mark"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-command"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
+</svg>
+</span><p>End of the note. Beginning of the rabbit hole.</p><a href="#top">Back to top <!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="m5 12 7-7 7 7" />
+  <path d="M12 19V5" />
+</svg>
+</a></footer>
+    </article>
+    
+    <section class="more-notes" aria-labelledby="more-title"><div class="section-label"><h2 id="more-title">Keep the thread going</h2><span>MORE FROM THE NOTEBOOK</span></div><a class="related-note" href="deadfacectf26-Necromancy.html"><span><small>WRITEUP</small><strong>DeadFaceCTF26 / Necromancy</strong></span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a class="related-note" href="deadfacectf26-CerealKiller01.html"><span><small>WRITEUP</small><strong>DeadFaceCTF26 / Cereal Killer 01</strong></span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></section>
+  
+    <footer class="site-footer">
+      <div class="footer-credit"><span>Notes by a horse. &copy; 2026</span><span>Made of curiosity &amp; a little bit of chaos.</span></div>
+      <div class="support-links" aria-label="Support this site">
+        <span>Enjoying the notebook?</span>
+        <a class="support-button" href="https://github.com/Adrian-C-1" target="_blank" rel="noopener noreferrer">Support me</a>
+        <a class="support-button support-button-primary" href="https://github.com/Adrian-C-1/Adrian-C-1.github.io" target="_blank" rel="noopener noreferrer">Star this site</a>
+      </div>
+    </footer>
+  </main>
+  <button class="mobile-toc-button" type="button" aria-label="Open table of contents" aria-expanded="false" aria-controls="mobile-toc"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-list"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M3 12h.01" />
+  <path d="M3 18h.01" />
+  <path d="M3 6h.01" />
+  <path d="M8 12h13" />
+  <path d="M8 18h13" />
+  <path d="M8 6h13" />
+</svg>
+<span>Contents</span></button><dialog class="reader-dialog" id="mobile-toc"><header><h2>On this page</h2><button class="icon-button close-dialog" type="button" aria-label="Close contents"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></header><nav class="mobile-toc"><a href="#about-adrian" class="toc-link" data-heading="about-adrian"><span class="toc-mark" aria-hidden="true">01</span><span class="toc-label">About Adrian</span></a><a href="#about-the-horse" class="toc-link" data-heading="about-the-horse"><span class="toc-mark" aria-hidden="true">02</span><span class="toc-label">About the horse</span></a><a href="#about-this-notebook" class="toc-link" data-heading="about-this-notebook"><span class="toc-mark" aria-hidden="true">03</span><span class="toc-label">About this notebook</span></a><a href="#ai-usage" class="toc-link" data-heading="ai-usage"><span class="toc-mark" aria-hidden="true">04</span><span class="toc-label">AI usage</span></a></nav></dialog>
+  <dialog class="reader-dialog" id="library"><header><h2>The notebook</h2><button class="icon-button close-dialog" type="button" aria-label="Close notebook"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button></header><div class="library-list"><a href="archive.html"><small>ALL ENTRIES</small><span>Browse the archive</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-Necromancy.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Necromancy</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller01.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 01</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller02.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 02</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller03.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 03</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CerealKiller04.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cereal Killer 04</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CursedLibrary.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cursed Library</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-CursedMirror.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Cursed Mirror</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-ItButAWeeBitReverse.html"><small>WRITEUP</small><span>DeadFaceCTF26 / It But A Wee Bit Reverse</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-SkeletonKey.html"><small>WRITEUP</small><span>DeadFaceCTF26 / Skeleton Key</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="deadfacectf26-TheCrypt.html"><small>WRITEUP</small><span>DeadFaceCTF26 / The Crypt</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-commit-to-memory.html"><small>WRITEUP</small><span>POCTF26 / Commit to Memory</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-excavation.html"><small>WRITEUP</small><span>POCTF26 / Excavation</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-invisible-ink.html"><small>WRITEUP</small><span>POCTF26 / Invisible Ink</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-no-structure-required.html"><small>WRITEUP</small><span>POCTF26 / No Structure Required</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="intro.html"><small>JOURNAL</small><span>Pilot</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-poisoned-well.html"><small>WRITEUP</small><span>POCTF26 / Poisoned Well</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a><a href="pointeroverflowctf26-the-shape-of-a-query.html"><small>WRITEUP</small><span>POCTF26 / The Shape of a Query</span><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-arrow-up-right"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M7 7h10v10" />
+  <path d="M7 17 17 7" />
+</svg>
+</a></div></dialog>
+  <dialog class="image-dialog" id="image-viewer"><button class="icon-button close-dialog" type="button" aria-label="Close image"><!-- @license lucide-static v0.468.0 - ISC -->
+<svg aria-hidden="true" focusable="false"   class="lucide lucide-x"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6 6 18" />
+  <path d="m6 6 12 12" />
+</svg>
+</button><img alt=""><p></p></dialog>
+  <div class="sr-only" role="status" id="reader-status"></div>
+</body>
+</html>
